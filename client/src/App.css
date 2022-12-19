@@ -1,0 +1,201 @@
+.App {
+  font-family: 'Open Sans Condensed', sans-serif;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans Condensed', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  background: linear-gradient(
+    to left,
+    rgb(0, 0, 0) 0%,
+    rgb(28, 28, 28) 100%
+  );
+}
+
+.app-title {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-size: 20px;
+  color: rgb(61, 61, 61);
+}
+
+.contenitore {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 10px;
+  column-gap: 6px;
+  margin: 4px;
+}
+@media (max-width: 869px) {
+  .contenitore {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 870px) {
+  .contenitore {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+.blocco {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px;
+  border-radius: 6px;
+  border-style: solid;
+  border-color: rgb(56, 56, 56);
+}
+
+.selection {
+  background-color: rgb(48, 46, 46);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  border: 1px;
+  border-style: solid;
+  border-color: rgb(104, 104, 104);
+  width: 82%;
+  border-radius: 6px;
+  margin-top: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 1px 1px 4px rgb(255, 255, 255);
+}
+
+.basic {
+  margin-bottom: 34px;
+  width: 94%;
+}
+.basic-single {
+  font-size: 18px;
+}
+
+
+/* caselle opzioni */
+ .option-type {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 36px;
+  width: 100%;
+ }
+
+ .option-amount {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+ }
+
+ .button-opt {
+  background-color: #181A20;
+  color: rgb(100, 100, 100);
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 12px;
+  margin: 4px;
+  cursor: pointer;
+  border-style: solid;
+  border-color: rgb(100, 100, 100);
+  border-radius: 4px;
+  width: 100%;
+ }
+
+.button-opt:hover {
+  opacity: 0.8;
+ }
+ .button-opt:active {
+  opacity: 0.3;
+ }
+
+
+
+ /* bottoni long short */
+ .buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 30px;
+  height: 76px; 
+}
+
+.long {
+  background-color: rgb(14, 203, 129);
+  cursor: pointer;
+  margin-left: 8px;
+  margin-right: 4px;
+  border-style: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  transition: opacity 0.15s;
+}
+
+.short {
+  background-color: rgb(246, 70, 93);
+  cursor: pointer;
+  margin-left: 4px;
+  margin-right: 8px;
+  border-style: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  transition: opacity 0.15s;
+}
+.short:hover,
+.long:hover {
+  opacity: 0.8;
+ }
+ .short:active,
+ .long:active {
+  opacity: 0.3;
+ }
+
+
+.ordini {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px;
+  border-radius: 6px;
+  border-style: solid;
+  border-color: rgb(56, 56, 56);
+  margin: 28px 5px 28px 5px;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(119, 119, 119);
+}
+.close-button {
+  background-color: #181A20;
+  color: white;
+  cursor: pointer;
+  margin-left: 8px;
+  margin-right: 4px;
+  padding: 8px;
+  border-style: none;
+  border-radius: 6px;
+  font-size: 32px;
+  transition: opacity 0.15s;
+}
+.close-button:hover {
+  opacity: 0.8;
+}
+.close-button:active {
+  opacity: 0.3;
+}
+
+
+
+
+
+
+
