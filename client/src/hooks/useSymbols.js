@@ -1,14 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { httpGetSymbols } from "./requests";
 
-
 function useSymbols() {
-  const [ symbols, setSymbols ] = useState([]);
+  const [symbols, setSymbols] = useState([]);
 
-  const getSymbols = useCallback(async () => {
+  const getSymbols = async () => {
     const fetchedSymbols = await httpGetSymbols();
     setSymbols(fetchedSymbols);
-  }, []);
+  };
 
   useEffect(() => {
     getSymbols();
@@ -16,6 +15,5 @@ function useSymbols() {
 
   return symbols;
 }
-
 
 export default useSymbols;
