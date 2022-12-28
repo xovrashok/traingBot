@@ -1,19 +1,15 @@
-import Select from 'react-select';
+import SymbolsDropdown from './SymbolsDropdown';
 
-import useSymbols from '../../hooks/useSymbols';
-
-const Symbols = ({ onChange }) => {
-  const { data: symbols } = useSymbols();
-
+const Symbols = ({ onChange, selectedSymbol }) => {
   return (
-    <Select
-      className="basic-single"
-      classNamePrefix="select"
-      onChange={onChange}
-      options={symbols}
-      name="color"
-      isSearchable="true"
-    />
+    <div className="blocco">
+      <div className="selection" id="symbol" name="symbol">
+        {selectedSymbol ? selectedSymbol.label : 'symbol'}
+      </div>
+      <div className="basic">
+        <SymbolsDropdown onChange={onChange} />
+      </div>
+    </div>
   );
 };
 

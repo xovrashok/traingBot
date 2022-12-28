@@ -1,7 +1,7 @@
-import useSWR from 'swr';
+import { useGetRequest } from './requests';
 
 const useSymbols = () => {
-  const { data, error, isLoading } = useSWR('/markets');
+  const { data, error, isLoading } = useGetRequest('/markets');
 
   return {
     data,

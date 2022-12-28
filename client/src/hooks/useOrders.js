@@ -1,38 +1,36 @@
-import { httpCreateOrder } from "./requests";
-import usePositions from "./usePositions";
+import { usePostRequest } from './requests';
+import { ORDER_SIDE } from '../constants';
 
+function useOrders() {
+  const { data, error, trigger, reset, isMutating } = usePostRequest('/orders');
 
-function useOrder(params) {
-  const { getPositions } = usePositions();
+  const createLongOrder = (symbol, type, amount) => {
+    trigger({
+      type,
+      amount,
+      symbol: symbol.label,
+      side: ORDER_SIDE.BUY,
+    });
+  };
 
-  const createLongOrder = async (e) => {
-    e.preventDefault();
-
-    const { symbol, type, amount} = params;
-    console.log(symbol, type, amount);
-    const side = 'buy';
-
-    await httpCreateOrder({ symbol, type, side, amount });
-    await getPositions();
-  }
-
-  const createShortOrder = async (e) => {
-    e.preventDefault();
-
-    const { symbol, type, amount} = params;
-    console.log(symbol, type, amount);
-    const side = 'sell';
-
-    await httpCreateOrder({ symbol, type, side, amount });
-  }
-
+  const createShortOrder = (symbol, type, amount) => {
+    trigger({
+      type,
+      amount,
+      symbol: symbol.label,
+      side: ORDER_SIDE.SELL,
+    });
+  };
 
   return {
     createLongOrder,
     createShortOrder,
+    data,
+    error,
+    isMutating,
+    reset,
+    trigger,
   };
 }
 
-
-export default useOrder;
-
+export default useOrders;
