@@ -1,50 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, Suspense, useMemo } from 'react';
 
-import usePositions from './hooks/usePositions';
 import useSymbols from './hooks/useSymbols';
-import useOrder from './hooks/useOrders';
 
 import Select from 'react-select';
 import './App.css';
-
-
+import { Positions } from "./components/Positions/Positions";
+import useCreateOrder from "./hooks/useCreateLongOrder";
 
 const App = () => {
-
   const [ selection, setSelection ] = useState("");
-  const [ type, setType ] = useState("");
-  const [ amount, setAmount ] = useState("");
-  const [ showedAmount, setShowedAount ] = useState("");
-  const [ selectedParams, setSelectedParams ] = useState({});
+  const [ type, setType ] = useState("market");
+  const [ amount, setAmount ] = useState("1000");
 
-
+  //Работает на каждый рендер
   const symbols = useSymbols();
-  const { positions, closePosition } = usePositions();
-  const { createLongOrder, createShortOrder } = useOrder(selectedParams);
+  const createOrder = useCreateOrder();
+  const showedAmount = useMemo(() => amount / 1000 + '.000$', [amount])
+  console.log(createOrder, 'createOrder')
+  //Работает на каждый рендер
 
-
-  useEffect(() => {
-    const showedAmount1 = amount / 1000 + '.000$';
-    if(showedAmount1 !== '0.000$') {
-      setShowedAount(showedAmount1);
-    }
-  }, [amount]);
-
-
-
-  useEffect(() => {
-   const selectedParams = {
-    symbol: selection.label,
-    type: type,
-    amount: amount,
-  };
-  setSelectedParams(selectedParams);
-  console.log(selectedParams); 
-  }, [amount, selection, type]);
-
-
- 
-  
   return (
     <div className="App">
       <h1 className='app-title'> MENU </h1>
@@ -57,8 +31,8 @@ const App = () => {
           <Select
             className="basic-single"
             classNamePrefix="select"
-            onChange={ setSelection }
-            options={ symbols }
+            onChange={setSelection}
+            options={symbols.data}
             name="color"
             isSearchable="true"
           />
@@ -66,7 +40,7 @@ const App = () => {
         </div>
 
         <div className='blocco'>
-          <div className='selection'> { type || 'type' } </div>
+          <div className='selection'> { type } </div>
           <div className='option-type'>
             <button 
               className='button-opt'
@@ -106,33 +80,38 @@ const App = () => {
         </div>
         
         <div className='blocco'>
-          <div className='selection'> params  </div>
+          <div className='selection'>params</div>
         </div>
 
 
       </div>
-
       <div className='buttons'>
         <button 
           className='long'
-          onClick={createLongOrder}
+          onClick={async () => {
+            try {
+              const result = await createOrder.trigger({ symbol: selection.label, type, side: 'buy', amount })
+              console.log(result, 'buy result')
+            } catch (e) {
+              console.log(e, 'ERROR')
+            }
+          }}
         >Long</button>
         <button 
           className='short'
-          onClick={createShortOrder}
+          onClick={async () => {
+            try {
+              const result = await createOrder.trigger({ symbol: selection.label, type, side: 'sell', amount })
+              console.log(result, 'sell result')
+            } catch (e) {
+              console.log(e, 'ERROR')
+            }
+          }}
         >Short</button>
       </div>
-
-      <div className='ordini'>
-        <p>POSITION </p>
-        <button
-          className='close-button'
-          onClick={closePosition}
-        >X</button>
-      </div>
-
-
-
+        <Suspense fallback={<div>загрузка...</div>}>
+            <Positions type={type}/>
+        </Suspense>
     </div>
   );
 };

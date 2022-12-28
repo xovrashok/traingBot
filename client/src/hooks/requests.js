@@ -1,14 +1,8 @@
 const API_URL = 'http://localhost:8000';
 
-
-async function httpGetSymbols() {
-  const response = await fetch(`${API_URL}/markets`);
-  return await response.json();
-}
-
-
 async function httpCreateOrder(order) {
   try {
+    console.log(order, 'order')
     return await fetch(`${API_URL}/orders`, {
       method: "post",
       headers: {
@@ -21,36 +15,26 @@ async function httpCreateOrder(order) {
   }
 }
 
-async function httpFetchOpenPosition() {
-  const response = await fetch(`${API_URL}/position`);
-  return await response.json();
+const fetcher = (...args) => {
+  return fetch(...args).then(res => res.json())
 }
 
-
-async function httpClosePosition(position) {
-  try {
-    return await fetch(`${API_URL}/position`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(position),
-    }); 
-  } catch(err) {
-    console.log(err);
-    //return {
-      //ok: false,
-    //};
-  }
+const sendRequest = (url, { arg }) => {
+   return fetch(url, {
+    method: 'post',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(arg)
+  }).then(res => res.json())
 }
 
 
 
 export {
-  httpGetSymbols,
+  sendRequest,
+  fetcher,
   httpCreateOrder,
-  httpFetchOpenPosition,
-  httpClosePosition
 };
 
 

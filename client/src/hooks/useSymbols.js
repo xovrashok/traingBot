@@ -1,20 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
-import { httpGetSymbols } from "./requests";
+import { fetcher } from "./requests";
+import useSWR from "swr";
 
 
 function useSymbols() {
-  const [ symbols, setSymbols ] = useState([]);
 
-  const getSymbols = useCallback(async () => {
-    const fetchedSymbols = await httpGetSymbols();
-    setSymbols(fetchedSymbols);
-  }, []);
+  const { data, error, isLoading } = useSWR('http://localhost:8000/markets', fetcher, { suspense: true })
 
-  useEffect(() => {
-    getSymbols();
-  }, [getSymbols]);
-
-  return symbols;
+  return {
+    data,
+    error,
+    isLoading
+  };
 }
 
 

@@ -1,9 +1,9 @@
 import { httpCreateOrder } from "./requests";
-import usePositions from "./usePositions";
+// import usePositions from "./usePositions";
 
 
 function useOrder(params) {
-  const { getPositions } = usePositions();
+  // const { getPositions } = usePositions();
 
   const createLongOrder = async (e) => {
     e.preventDefault();
@@ -13,7 +13,7 @@ function useOrder(params) {
     const side = 'buy';
 
     await httpCreateOrder({ symbol, type, side, amount });
-    await getPositions();
+    // await getPositions();
   }
 
   const createShortOrder = async (e) => {
