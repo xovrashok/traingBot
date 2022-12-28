@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { httpGetSymbols } from "./requests";
+import { useCallback, useEffect, useState } from 'react';
+import { httpGetSymbols } from './requests';
 
 function useSymbols() {
   const [symbols, setSymbols] = useState([]);
 
-  const getSymbols = async () => {
+  const getSymbols = useCallback(async () => {
     const fetchedSymbols = await httpGetSymbols();
     setSymbols(fetchedSymbols);
-  };
+  }, []);
 
   useEffect(() => {
     getSymbols();

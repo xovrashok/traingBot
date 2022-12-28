@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from 'react';
 
-import { httpFetchOpenPosition, httpClosePosition } from "./requests";
+import { httpFetchOpenPosition, httpClosePosition } from './requests';
 
 function usePositions() {
   const [positions, setPositions] = useState([]);
 
-  const getPositions = async () => {
+  const getPositions = useCallback(async () => {
     const openPositions = await httpFetchOpenPosition();
     setPositions(openPositions);
-  };
+  }, []);
 
   useEffect(() => {
     getPositions();
@@ -18,8 +18,8 @@ function usePositions() {
     e.preventDefault();
 
     const { symbol, side, contracts } = positions;
-    const type = "market";
-    let sideClose = side === "long" ? "sell" : "buy";
+    const type = 'market';
+    let sideClose = side === 'long' ? 'sell' : 'buy';
     console.log(symbol, type, sideClose, contracts);
 
     await httpClosePosition({ symbol, type, sideClose, contracts });

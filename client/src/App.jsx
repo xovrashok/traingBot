@@ -1,29 +1,29 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from 'react';
 
-import usePositions from "./hooks/usePositions";
-import useSymbols from "./hooks/useSymbols";
-import useOrder from "./hooks/useOrders";
+import usePositions from './hooks/usePositions';
+import useSymbols from './hooks/useSymbols';
+import useOrder from './hooks/useOrders';
 
-import Select from "react-select";
-import "./App.css";
+import Select from 'react-select';
+import './App.css';
 
 const App = () => {
-  const [selection, setSelection] = useState("");
-  const [type, setType] = useState("");
-  const [amount, setAmount] = useState("");
-  const [showedAmount, setShowedAount] = useState("");
+  const [selection, setSelection] = useState('');
+  const [type, setType] = useState('');
+  const [amount, setAmount] = useState('1000');
+  // const [showedAmount, setShowedAount] = useState('');
   const [selectedParams, setSelectedParams] = useState({});
 
   const symbols = useSymbols();
   const { positions, closePosition } = usePositions();
   const { createLongOrder, createShortOrder } = useOrder(selectedParams);
 
-  useMemo(() => {
-    const showedAmount1 = amount / 1000 + ".000$";
-    if (showedAmount1 !== "0.000$") {
-      setShowedAount(showedAmount1);
-    }
-  }, [amount]);
+  const showedAmount = useMemo(() => amount / 1000 + '.000$', [amount]);
+  // const test = useMemo(() => {
+  //   if (showedAmount1 !== '0.000$') {
+  //     return showedAmount1;
+  //   }
+  // }, [showedAmount1]);
 
   useEffect(() => {
     const selectedParams = {
@@ -42,8 +42,8 @@ const App = () => {
       <div className="contenitore">
         <div className="blocco">
           <div className="selection" id="symbol" name="symbol">
-            {" "}
-            {selection.label || "symbol"}{" "}
+            {' '}
+            {selection.label || 'symbol'}{' '}
           </div>
           <div className="basic">
             <Select
@@ -58,19 +58,19 @@ const App = () => {
         </div>
 
         <div className="blocco">
-          <div className="selection"> {type || "type"} </div>
+          <div className="selection"> {type || 'type'} </div>
           <div className="option-type">
-            <button className="button-opt" onClick={() => setType("market")}>
+            <button className="button-opt" onClick={() => setType('market')}>
               market
             </button>
-            <button className="button-opt" onClick={() => setType("limit")}>
+            <button className="button-opt" onClick={() => setType('limit')}>
               limit
             </button>
           </div>
         </div>
 
         <div className="blocco">
-          <div className="selection"> {showedAmount || "amount"} </div>
+          <div className="selection"> {showedAmount || 'amount'} </div>
 
           <div className="option-amount">
             <button className="button-opt" onClick={() => setAmount(20000)}>
