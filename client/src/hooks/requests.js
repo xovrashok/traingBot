@@ -3,11 +3,17 @@ import useSWR from 'swr';
 
 import config from '../config';
 
+const REQUEST_METHOD = {
+  POST: 'post',
+  PUT: 'put',
+  DELETE: 'delete',
+};
+
 const getRequestFetcher = (url, init) => {
   return fetch(url, init).then((res) => res.json());
 };
 
-export const useGetRequest = (url) => useSWR(config.apiEndpoint + url, getRequestFetcher);
+export const useGetRequest = (url, requestConfig) => useSWR(config.apiEndpoint + url, getRequestFetcher, requestConfig);
 
 const createPostOrPutFetcher = (requestMethod) => {
   return (url, { arg }) => {
@@ -22,65 +28,6 @@ const createPostOrPutFetcher = (requestMethod) => {
 };
 
 // https://swr.vercel.app/docs/global-configuration
-export const usePostRequest = (url) => useSWRMutation(config.apiEndpoint + url, createPostOrPutFetcher('post'));
-export const usePutRequest = (url) => useSWRMutation(config.apiEndpoint + url, createPostOrPutFetcher('put'));
-export const useDeleteRequest = (url) => useSWRMutation(config.apiEndpoint + url, createPostOrPutFetcher('delete'));
-
-// const API_URL = 'http://localhost:8000';
-//
-//
-// async function httpGetSymbols() {
-//   const response = await fetch(`${API_URL}/markets`);
-//   return await response.json();
-// }
-//
-//
-// async function httpCreateOrder(order) {
-//   try {
-//     return await fetch(`${API_URL}/orders`, {
-//       method: "post",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(order),
-//     });
-//   } catch(err) {
-//     console.log(err);
-//   }
-// }
-//
-// async function httpFetchOpenPosition() {
-//   const response = await fetch(`${API_URL}/position`);
-//   return await response.json();
-// }
-//
-//
-// async function httpClosePosition(position) {
-//   try {
-//     return await fetch(`${API_URL}/position`, {
-//       method: "post",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(position),
-//     });
-//   } catch(err) {
-//     console.log(err);
-//     //return {
-//       //ok: false,
-//     //};
-//   }
-// }
-//
-//
-//
-// export {
-//   httpGetSymbols,
-//   httpCreateOrder,
-//   httpFetchOpenPosition,
-//   httpClosePosition
-// };
-//
-//
-//
-//
+export const usePostRequest = (url) => useSWRMutation(config.apiEndpoint + url, createPostOrPutFetcher(REQUEST_METHOD.POST));
+export const usePutRequest = (url) => useSWRMutation(config.apiEndpoint + url, createPostOrPutFetcher(REQUEST_METHOD.PUT));
+export const useDeleteRequest = (url) => useSWRMutation(config.apiEndpoint + url, createPostOrPutFetcher(REQUEST_METHOD.DELETE));

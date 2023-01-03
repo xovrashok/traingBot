@@ -1,14 +1,19 @@
 import { useGetRequest } from './requests';
 
-const usePosition = () => {
-    const { data, error, isLoading, mutate } = useGetRequest('/position');
+const usePositions = () => {
+  const { data, error, isLoading, mutate } = useGetRequest('/position', {
+    refreshInterval: 3000,
+  });
 
-    return {
-        data,
-        error,
-        isLoading,
-        mutate,
-    };
+  return {
+    data,
+    error,
+    isLoading,
+    mutate,
+    refetch() {
+      return mutate();
+    },
+  };
 };
 
-export default usePosition;
+export default usePositions;
