@@ -1,19 +1,19 @@
 import useOrders from '../../hooks/useOrders';
-import usePosition from "../../hooks/usePositions";
+import usePosition from '../../hooks/usePositions';
 
 const CreateOrder = ({ selectedSymbol, orderType, amount }) => {
   const { createLongOrder, createShortOrder, isMutating, data, error } = useOrders();
-  const { mutate } = usePosition()
+  const { mutate } = usePosition();
 
   // Event handles
   const handleLongClick = async () => {
     await createLongOrder(selectedSymbol, orderType, amount);
-    mutate()
+    mutate();
   };
 
   const handleShortClick = async () => {
     await createShortOrder(selectedSymbol, orderType, amount);
-    mutate()
+    mutate();
   };
 
   return (

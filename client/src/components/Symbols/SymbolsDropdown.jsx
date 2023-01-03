@@ -1,7 +1,7 @@
 import Select from 'react-select';
 
 import useSymbols from '../../hooks/useSymbols';
-import {useEffect} from "react";
+import { useEffect } from 'react';
 
 const SymbolsDropdown = ({ onChange }) => {
   const { data: symbols } = useSymbols();

@@ -1,4 +1,4 @@
-import {useMemo} from "react";
+import { useMemo } from 'react';
 
 const Amount = ({ amount, onChange }) => {
   const formattedAmount = useMemo(() => amount / 1000 + '.000$', [amount]);
