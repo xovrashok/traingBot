@@ -1,4 +1,3 @@
-// Snackbar.jsx
 import React from 'react';
 
 import useSnackbar from '../../hooks/useSnackbar';
