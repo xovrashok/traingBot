@@ -4,8 +4,8 @@ import { ORDER_SIDE } from '../constants';
 function useOrders() {
   const { data, error, trigger, reset, isMutating } = usePostRequest('/orders');
 
-  const createLongOrder = (symbol, type, amount) => {
-    trigger({
+  const createLongOrder = async (symbol, type, amount) => {
+    return await trigger({
       type,
       amount,
       symbol: symbol.label,
@@ -13,8 +13,8 @@ function useOrders() {
     });
   };
 
-  const createShortOrder = (symbol, type, amount) => {
-    trigger({
+  const createShortOrder = async (symbol, type, amount) => {
+    return await trigger({
       type,
       amount,
       symbol: symbol.label,
